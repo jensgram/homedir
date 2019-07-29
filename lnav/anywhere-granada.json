@@ -1,0 +1,96 @@
+{
+    "anywhere_granada": {
+        "title": "Anywhere",
+        "description": "Anywhere log format, Granada (6.4) onwards",
+        "url": "http://cetrea.com",
+        "file-pattern": "anywhere.*\\.log",
+        "regex": {
+            "default-granada": {
+                "pattern": "^(?<timestamp>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2},\\d{3}) \\[(?<thread>[^\\]]+)\\] (?<level>TRACE|DEBUG|INFO|WARN|ERROR|FATAL)\\s+\\[(?<correlationid>[^\\]]+)\\] \\[(?<sessionid>[^\\]]+)\\] (?<file>[^:]+):(?<fileline>(-1|\\d+)) - (Inbound request: (?<ip>\\S+) - (?<method>\\S+) - (?<elapsedms>\\d+)ms (\\((?<pagecachestatus>not-cacheable|not-applicable|hit|miss)(:(?<pagecachekey>[^)]+))?\\) )?- (?<httpcode>\\d+) - /(?<format>[^/]+)/)?(?<body>.+)"
+            }
+        },
+        "opid-field": "correlationid",
+        "json": false,
+        "level": {
+            "fatal": "FATAL",
+            "error": "ERROR",
+            "warning": "WARN",
+            "info": "INFO",
+            "debug": "DEBUG",
+            "trace": "TRACE"
+        },
+        "value": {
+            "thread": {
+                "identifier": true,
+                "kind": "string"
+            },
+            "correlationid": {
+                "identifier": true,
+                "kind": "string"
+            },
+            "sessionid": {
+                "identifier": true,
+                "kind": "string"
+            },
+            "file": {
+                "identifier": false,
+                "kind": "string"
+            },
+            "fileline": {
+                "identifier": false,
+                "kind": "integer"
+            },
+            "ip": {
+                "collate": "ipaddress",
+                "identifier": true,
+                "kind": "string"
+            },
+            "method": {
+                "identifier": false,
+                "kind": "string"
+            },
+            "elapsedms": {
+              "identifier": false,
+              "kind": "integer"
+            },
+            "pagecachestatus": {
+              "identifier": false,
+              "kind": "string"
+            },
+            "pagecachekey": {
+              "identifier": true,
+              "kind": "string"
+            },
+            "httpcode": {
+              "identifier": false,
+              "kind": "integer"
+            },
+            "format": {
+                "identifier": false,
+                "kind": "string"
+            },
+            "body": {
+                "identifier": false,
+                "kind": "string"
+            }
+        },
+        "sample": [
+            {
+                "line": "2018-04-20T10:28:26,141 [Jetty-24    ] INFO  [b18fe990-c31] [9nnocizxfz2b] com.cetrea.anywhere.AnywhereService:573 - Inbound request: 10.1.132.2 - GET - 1ms (not-cacheable) - 200 - /raw/genericlists/1.6.0/assets/app/templates/genericList.html",
+                "level": "info"
+            },
+            {
+                "line": "2018-04-20T09:46:55,723 [Jetty-43    ] INFO  [bd0022c4-5a1] [1rsfoetwv482] com.cetrea.anywhere.AnywhereService:573 - Inbound request: 10.1.132.20 - GET - 335ms (miss:dBK7FYUPC9OPrs2qvJZ8yqUXmBE=) - 200 - /raw/anywhere.min.js",
+                "level": "info"
+            },
+            {
+                "line": "2018-04-20T10:28:26,605 [Jetty-25    ] WARN  [594563f9-48f] [9nnocizxfz2b] com.cetrea.anywhere.endpoints.GenericLists:830 - No such EditableControl available: AssistanceEquipmentTransport v. [no version]. Using stand-in MissingEditableControl.",
+                "level": "warning"
+            },
+            {
+                "line": "2018-04-24T11:25:22,812 [Jetty-42    ] INFO  [13936bfb-c75] [1mlb457ggong] actionmanager.endpoints.Actions:-1 - Listing actions: Invocation context=[], Ext.system values=[]",
+                "level": "info"
+            }
+        ]
+    }
+}

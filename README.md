@@ -1,1 +1,4 @@
-# homedir
+# snippets
+
+Bits and pieces.
+
