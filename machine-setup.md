@@ -2,7 +2,7 @@
 
 1. Install Homebrew: https://brew.sh/
 2. Install Oh My ZSH: https://ohmyz.sh/
-3. `brew install curl git lnav tig unrar wget zsh`
+3. `brew install curl git lnav tig unrar wget zsh jenv`
 4. `brew cask install dropbox boostnote kdiff3 postman slack spectacle sublime-text vlc jetbrains-toolbox licecap gimp firefox sonos thunderbird`
 
 ## Oh My ZSH
@@ -12,12 +12,50 @@
     export ZSH=/Users/jensgram/.oh-my-zsh
     ZSH_THEME="re5et"
     COMPLETION_WAITING_DOTS="true"
+    HIST_STAMPS="yyyy-mm-dd"
     plugins=(git wd brew brew-cask)
     
 `themes/re5et.zsh-theme` diff:
 
     -RPS1='${return_code} %D - %*'
     +RPS1='${return_code} %D{%d-%m-%Y} - %*'
+
+## jEnv – Multiple Java versions
+
+Install desired JDKs:
+
+    % brew cask install adoptopenjdk11
+    % …
+
+Add to `~/.zshrc`:
+
+    # jenv
+    export PATH="$HOME/.jenv/bin:$PATH"
+    eval "$(jenv init -)"
+
+Then, set global vesion:
+
+    % jenv enable-plugin export
+    % jenv enable-plugin maven
+    % jenv global 11.0
+
+## Global `.gitignore`
+
+`~/.gitignore_global`:
+
+    # OS specific
+    .DS_Store
+
+    # IDE: IntelliJ
+    .idea/
+    *.iml
+
+    # jEnv per-directory Java version
+    .java-version
+
+Then, add as global default:
+
+    % git config --global core.excludesfile ~/.gitignore_global
 
 ## Spectacle
 
