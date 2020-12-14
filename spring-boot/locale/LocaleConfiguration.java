@@ -6,7 +6,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
@@ -23,7 +23,7 @@ import java.util.Locale;
  * {@code LocaleContextHolder.getLocale(null)}, respectively.
  */
 @Configuration
-public class LocaleConfiguration extends WebMvcConfigurationSupport {
+public class LocaleConfiguration implements WebMvcConfigurer {
   private static final Locale DEFAULT_LOCALE = Locale.ENGLISH;
   private static final List<Locale> SUPPORTED_LOCALES = List.of(
     DEFAULT_LOCALE
@@ -42,7 +42,7 @@ public class LocaleConfiguration extends WebMvcConfigurationSupport {
   }
 
   @Override
-  protected void addInterceptors(InterceptorRegistry registry) {
+  public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(new ContentLanguageHeaderHandlerInterceptor());
   }
 
